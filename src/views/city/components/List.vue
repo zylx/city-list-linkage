@@ -44,13 +44,21 @@ export default {
     },
     citiesList: {
       type: Object,
-      default: () => {}
+      default: () => { }
     }
   },
   mounted () {
     this.scroll = new BScroll(this.$refs.wrapper, {
       click: true
     })
+  },
+  watch: {
+    letter () {
+      if (this.letter) {
+        const element = this.$refs[this.letter] && this.$refs[this.letter][0]
+        this.scroll.scrollToElement(element)
+      }
+    }
   },
   methods: {
     handleCityClick (city) {
