@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import BScroll from 'better-scroll'
 export default {
   name: 'Search',
   props: {
@@ -45,6 +46,37 @@ export default {
   computed: {
     hasNoData () {
       return !this.searchList.length
+    }
+  },
+  watch: {
+    keyword () {
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      this.timer = setTimeout(() => {
+        const result = []
+        if (this.keyword.trim().length) {
+          for (const i in this.citiesList) {
+            this.citiesList[i].forEach(item => {
+              if (item.spell.indexOf(this.keyword) > -1 || item.name.indexOf(this.keyword) > -1) {
+                result.push(item)
+              }
+            })
+          }
+        }
+        this.searchList = result
+      }, 200)
+    }
+  },
+  mounted () {
+    this.scroll = new BScroll(this.$refs.search, {
+      click: true
+    })
+  },
+  methods: {
+    handleCityClick (city) {
+      console.log("handleCityClick -> city", city)
+      this.keyword = ''
     }
   }
 }
