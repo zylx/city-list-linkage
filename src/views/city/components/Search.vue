@@ -1,11 +1,88 @@
 <template>
   <div>
-    search
+    <div class="search">
+      <input
+        v-model="keyword"
+        class="search-input"
+        type="text"
+        placeholder="输入城市名或拼音"
+      />
+    </div>
+    <div class="search-content" ref="search" v-show="keyword">
+      <ul>
+        <li
+          class="search-item border-bottom"
+          v-for="item of searchList"
+          :key="item.id"
+          @click="handleCityClick(item.name)"
+        >
+          {{ item.name }}
+        </li>
+        <li class="search-item border-bottom" v-show="hasNoData">
+          您输入的内容没有匹配项
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Search'
+  name: 'Search',
+  props: {
+    citiesList: {
+      type: Object,
+      default: () => {}
+    }
+  },
+  data () {
+    return {
+      keyword: '',
+      timer: null,
+      searchList: []
+    }
+  },
+  computed: {
+    hasNoData () {
+      return !this.searchList.length
+    }
+  }
 }
 </script>
+
+<style lang="stylus" scoped>
+.search {
+  height: 0.72rem;
+  padding: 0.2rem 0.1rem 0.1rem;
+  background-color: #00bcd4;
+
+  .search-input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 0.62rem;
+    padding: 0 0.1rem;
+    line-height: 0.62rem;
+    border-radius: 0.06rem;
+    text-align: center;
+    color: #666;
+  }
+}
+
+.search-content {
+  position: absolute;
+  top: 1.22rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 1;
+  background-color: #efefef;
+
+  .search-item {
+    line-height: 0.62rem;
+    padding-left: 0.2rem;
+    background-color: #fff;
+    color: #666;
+  }
+}
+</style>
