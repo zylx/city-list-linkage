@@ -32,14 +32,12 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
 import BScroll from 'better-scroll'
 export default {
   name: 'List',
   props: {
     letter: {
-      type: String
-    },
-    currentCity: {
       type: String
     },
     citiesList: {
@@ -52,6 +50,11 @@ export default {
       click: true
     })
   },
+  computed: {
+    ...mapState({
+      currentCity: 'city'
+    })
+  },
   watch: {
     letter () {
       if (this.letter) {
@@ -62,8 +65,10 @@ export default {
   },
   methods: {
     handleCityClick (city) {
-      console.log("handleCityClick -> city", city)
-    }
+      this.changeCity(city)
+      this.scroll.scrollToElement(this.$refs.wrapper)
+    },
+    ...mapActions(['changeCity'])
   }
 }
 </script>

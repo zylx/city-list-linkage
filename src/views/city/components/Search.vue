@@ -27,13 +27,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import BScroll from 'better-scroll'
 export default {
   name: 'Search',
   props: {
     citiesList: {
       type: Object,
-      default: () => {}
+      default: () => { }
     }
   },
   data () {
@@ -75,9 +76,10 @@ export default {
   },
   methods: {
     handleCityClick (city) {
-      console.log("handleCityClick -> city", city)
       this.keyword = ''
-    }
+      this.changeCity(city)
+    },
+    ...mapActions(['changeCity'])
   }
 }
 </script>
