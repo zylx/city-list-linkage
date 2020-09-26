@@ -2,7 +2,6 @@
   <div>
     <search :citiesList="citiesList"/>
     <list
-      :currentCity="currentCity"
       :citiesList="citiesList"
       :letter="letter"
     />
@@ -18,7 +17,6 @@ export default {
   name: 'City',
   data () {
     return {
-      currentCity: '广州',
       letter: '',
       citiesList: {}
     }
