@@ -40,7 +40,6 @@ export default {
         })
     },
     letterSelect (letter) {
-      console.log("letterSelect -> letter", letter)
       this.letter = letter
     }
   },
