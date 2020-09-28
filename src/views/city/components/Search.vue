@@ -104,7 +104,7 @@ export default {
 
 .search-content {
   position: absolute;
-  top: 1.22rem;
+  top: 1.02rem;
   left: 0;
   right: 0;
   bottom: 0;
