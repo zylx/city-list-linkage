@@ -30,16 +30,13 @@ export default {
       letters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
       activeLetter: '',
       activeLetterTop: 0,
-      touchActive: false,
       startY: 0,
+      touchActive: false,
       timer: null
     }
   },
   mounted () {
-    console.log("mounted -> this.$refs.bar", this.$refs)
     this.startY = this.$refs.bar.offsetTop + this.$refs.A[0].offsetTop || 0 // 字母A距离文档边框顶部的高度
-    console.log("mounted -> this.startY", this.startY)
-    this.activeLetterTop = this.startY
   },
   methods: {
     handleLetterClick (e) {
