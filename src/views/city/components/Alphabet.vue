@@ -1,5 +1,5 @@
 <template>
-  <ul class="alphabet-list">
+  <ul class="alphabet-list" ref="bar">
     <li
       class="item"
       v-for="item of letters"
@@ -26,8 +26,8 @@ export default {
       timer: null
     }
   },
-  updated () {
-    this.startY = this.$refs.A[0].offsetTop || 0
+  mounted () {
+    this.startY = this.$refs.bar.offsetTop + this.$refs.A[0].offsetTop || 0 // 字母A距离文档边框顶部的高度
   },
   methods: {
     handleLetterClick (e) {
@@ -41,7 +41,7 @@ export default {
         // 节流，减少频繁触发带来的资源消耗
         if (this.timer) return
         this.timer = setTimeout(() => {
-          const touchY = e.touches[0].clientY - 110 // 字母A距离顶栏下边框得高度
+          const touchY = e.touches[0].clientY || e.touches[0].pageY
           const index = Math.floor((touchY - this.startY) / 20) // 20 为字母的高度，通过此计算出字母的下标值
           if (index >= 0 && index <= this.letters.length) {
             this.$emit('change', this.letters[index])
